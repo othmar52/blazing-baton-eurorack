@@ -2,5 +2,5 @@
     "board": "arduino:avr:nano",
     "configuration": "cpu=atmega328old",
     "port": "/dev/ttyUSB0",
-    "sketch": "host.ino"
+    "sketch": "blazing-baton-eurorack.ino"
 }
