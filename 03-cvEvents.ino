@@ -3,6 +3,7 @@
 const int CLOCK_INPUT = 2; // Input signal pin, must be usable for interrupts
 const int RESET_INPUT = 3; // Reset signal pin, must be usable for interrupts
 
+
 // ===========================================================================
 
 long clockTickCount = -1; // Input clock counter, -1 in order to go to 0 no the first pulse
@@ -17,13 +18,16 @@ volatile bool clockFlag = false; // Clock signal change flag, set in the clock I
 volatile bool resetFlag = false; // Reset flag, set in the reset ISR
 
 
+// keystep pro has high clock during stop
+// beatstep pro has lowclock during stop
+
 
 void setupCvClockReset() {
   // Interrupts
   pinMode(CLOCK_INPUT, INPUT);
   pinMode(RESET_INPUT, INPUT);
   attachInterrupt(digitalPinToInterrupt(CLOCK_INPUT), isrClock, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(RESET_INPUT), isrReset, RISING);
+  attachInterrupt(digitalPinToInterrupt(RESET_INPUT), isrReset, CHANGE);
 }
 
 void loopCvClockReset() {
@@ -63,12 +67,21 @@ void loopCvClockReset() {
 
 
 void isrClock() {
-  clockTickSignal = (digitalRead(CLOCK_INPUT) == HIGH);
+  clockTickSignal = (digitalRead(CLOCK_INPUT) == LOW);
+
+  handleMidiEventTickIkerionClock(clockTickSignal);
   clockFlag = true;
 }
 
 void isrReset() {
-  resetFlag = true;
+  if (digitalRead(RESET_INPUT) == HIGH) {
+    resetFlag = true;
+    //Serial.println("reset goes HIGH");
+    handleMidiEventStopIkerionClock();
+  } else {
+    //Serial.println("reset goes LOW");
+    handleMidiEventStartIkerionClock();
+  }
 }
 
 void handleMidiEventTick()
@@ -90,14 +103,10 @@ void handleMidiEventStart()
 
   // do stuff thats only blazing baton related
   handleMidiEventStartBaton();
-
 }
 
 void handleMidiEventStop()
 {
   clockRunning = false;
   tickCounter = 0;
-
-  // do stuff thats only blazing baton related
-  handleMidiEventStopBaton();
 }

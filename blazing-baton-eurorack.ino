@@ -18,9 +18,10 @@ bool clockRunning = true;
 void setup()
 {
   Serial.begin(31250); // MIDI baudrate
-  //Serial.begin(115200);
+  Serial.begin(115200);
   setupCvClockReset();
   setupBaton();
+  setupIkerionClock();
 }
 
 void loop()
