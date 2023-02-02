@@ -12,21 +12,21 @@
 uint8_t currentDataSource = DATASOURCE_IS_SERIAL;
 unsigned long lastMidiEventFromSerial = 0;
 
-unsigned long tickCounter = 0; // incremental counter since clock-start-event
+long tickCounter = 0; // incremental counter since clock-start-event
 bool clockRunning = true;
 
 void setup()
 {
   Serial.begin(31250); // MIDI baudrate
   Serial.begin(115200);
-  setupCvClockReset();
+  setupCvInputs();
   setupBaton();
-  setupIkerionClock();
+  setupModClockOutputs();
 }
 
 void loop()
 {
-  loopCvClockReset();
+  // loopCvClockReset();
 }
 
 void debug(String Msg)

@@ -1,6 +1,15 @@
 # blazing-baton-eurorack
 Visual helper for 16 bars of a 4/4 beat with 16 RGB-LEDs for achieving **better song structure** during live jams.  
 
+Additionaly a modified CV-clock / CV-reset is created on two output pins:  
+ - the very first clock pulse after pressing start is not passed through
+ - instead of the very first clock pulse a short reset pulse will be sent to reset out pin
+ 
+A few of my modules can't deal with reset HIGH during run and reset LOW during stop.  
+this modified clock/reset ensures that those modules are perfectly in sync with my master clock:  
+ - [Malekko Varigate 4+](https://www.modulargrid.net/e/malekko-heavy-industry-varigate-4-black)
+ - [Shakmat Time Wizard](https://www.modulargrid.net/e/shakmat-modular-time-wizard)
+ - [Ikerion Clock Divider](https://www.modulargrid.net/e/other-unknown-clock-divider--)
 
 [![](media/blazing-baton-eurorack-demo.gif "Blazing Baton Eurorack Demo")](https://github.com/othmar52/blazing-baton-eurorack/blob/master/media/blazing-baton-eurorack-demo.gif?raw=true)  
 
