@@ -13,4 +13,8 @@ Clock, Reset & GND are connected to a pin header on the shield. The RGB-LED stri
 basically the same as https://github.com/othmar52/blazing-baton-arduino with a few changes:  
 
  - instead of MIDI clock we use CV-clock + CV-reset as input signals
- - dropped RF network server/client communicaion
+ - dropped RF network server/client communication  
+ 
+ 
+ 
+see my other [eurorack DIY projects](https://github.com/othmar52/eurorack)  
